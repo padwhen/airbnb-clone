@@ -33,7 +33,7 @@ app.use('/uploads', express.static(__dirname+'/uploads/'))
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:8000'
+    origin: 'https://airbnb-clone-kknm.onrender.com'
 }))
 
 app.use(cookieParser())
@@ -192,6 +192,6 @@ app.get('/bookings', async (request, response) => {
     response.json(await Booking.find({user: userData.id}).populate('place')) 
 })
 
-app.listen(4000)
+app.listen(process.env.PORT || 4000)
 
 module.exports = app
