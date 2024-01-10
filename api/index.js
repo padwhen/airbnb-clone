@@ -193,3 +193,5 @@ app.get('/bookings', async (request, response) => {
 })
 
 app.listen(4000)
+
+module.exports = app
