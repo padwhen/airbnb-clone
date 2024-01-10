@@ -6,6 +6,6 @@ export default function PlaceImg({place, index=0, className=null}) {
         className = 'object-cover'
     }
     return (
-            <img className={className} src={'https://airbnb-h0sn.onrender.com/uploads/'+place.photos[index]} alt="" />
+            <img className={className} src={'/uploads/'+place.photos[index]} alt="" />
     )
 }
