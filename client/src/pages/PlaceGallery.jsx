@@ -16,7 +16,7 @@ export default function PlaceGallery({place}) {
                     </div>
                 {place?.photos?.length > 0 && place.photos.map(photo => (
                     <div className="w-300 h-300">
-                        <img className="w-full h-full object-contain" src={"http://localhost:4000/uploads/"+photo} alt="" />
+                        <img className="w-full h-full object-contain" src={"https://airbnb-h0sn.onrender.com/uploads/"+photo} alt="" />
                     </div>
                 ))}
                 </div>
@@ -29,17 +29,17 @@ export default function PlaceGallery({place}) {
                 <div>
                     {place.photos?.[0] && (
                     <div>
-                    <img className="aspect-square object-cover" src={`http://localhost:4000/uploads/${place.photos[0]}`} alt="" />
+                    <img className="aspect-square object-cover" src={`https://airbnb-h0sn.onrender.com/uploads/${place.photos[0]}`} alt="" />
                     </div>
                     )}
                 </div>
                 <div className="grid">
                     {place.photos?.[1] && (
-                    <img className="aspect-square object-cover" src={`http://localhost:4000/uploads/${place.photos[1]}`} alt="" />
+                    <img className="aspect-square object-cover" src={`https://airbnb-h0sn.onrender.com/uploads/${place.photos[1]}`} alt="" />
                     )}
                     <div className="overflow-hidden">
                     {place.photos?.[2] && (
-                    <img className="aspect-square relative top-2 object-cover" src={`http://localhost:4000/uploads/${place.photos[2]}`} alt="" />
+                    <img className="aspect-square relative top-2 object-cover" src={`https://airbnb-h0sn.onrender.com/uploads/${place.photos[2]}`} alt="" />
                     )}
                     </div>
                 </div>
