@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { Navigate } from "react-router-dom";
 import axios from 'axios'
 
 export default function RegisterPage() {
@@ -15,6 +16,7 @@ export default function RegisterPage() {
                 password
             })
             alert('Registration successful. Now you can log in')
+            return <Navigate to={'/login'} />
         } catch (exception) {
             alert('Registration fail. Please try again later')
         }

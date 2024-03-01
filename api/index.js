@@ -16,6 +16,8 @@ const Booking = require('./models/Booking')
 require('dotenv').config()
 app.use(express.json())
 
+app.use(express.static('dist'))
+
 const bcryptSalt = bcrypt.genSaltSync(10)
 const jwtSecret = 'randomstring'
 
@@ -33,7 +35,7 @@ app.use('/uploads', express.static(__dirname+'/uploads/'))
 
 app.use(cors({
     credentials: true,
-    origin: 'https://airbnb-clone-kknm.onrender.com'
+    origin: 'http://localhost:8000'
 }))
 
 app.use(cookieParser())

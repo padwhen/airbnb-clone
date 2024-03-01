@@ -1,1 +1,5 @@
+#ENV file
 .env
+
+#Production build
+dist
