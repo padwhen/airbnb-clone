@@ -1,18 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import './index.css'
 import IndexPage from './pages/IndexPage';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/Account/LoginPage';
 import Layout from './Layout';
-import RegisterPage from './pages/RegisterPage';
+import RegisterPage from './pages/Account/RegisterPage';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { UserContextProvider } from './UserContext';
-import AccountPage from './pages/Account';
-import PlacesPage from './pages/PlacesPage';
-import PlacesFormPage from './pages/PlacesFormPage';
-import PlacePage from './pages/PlacePage';
-import BookingsPage from './pages/BookingsPage';
-import BookingPage from './pages/BookingPage';
+import AccountPage from './pages/Account/Account';
+import PlacesFormPage from './pages/Pages/PlacesFormPage';
+import PlacePage from './pages/Pages/PlacePage';
+import BookingsPage from './pages/Booking/BookingsPage';
+import BookingPage from './pages/Booking/BookingPage';
 
 axios.defaults.baseURL = 'http://localhost:4000/'
 axios.defaults.withCredentials = true

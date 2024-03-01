@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import PlaceImg from "../PlaceImg"
+import PlaceImg from "../../PlaceImg"
 
 export default function PlacesPage() {
     const [places, setPlaces] = useState([])

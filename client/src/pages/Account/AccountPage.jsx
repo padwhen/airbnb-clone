@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../UserContext"
+import { UserContext } from "../../UserContext"
 import { Link, Navigate, useParams } from "react-router-dom"
 import axios from "axios"
-import PlacesPage from "./PlacesPage"
+import PlacesPage from "../Pages/PlacesPage"
 
 export default function AccountPage() {
     const [redirect, setRedirect] = useState(null)

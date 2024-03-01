@@ -99,33 +99,6 @@ app.post('/logout', (request, response) => {
 app.post('/logout', (request, response) => {
     response.cookie('token','').json(true)
 })
-
-app.post('/upload-by-link', async (request, response) => {
-    const {link} = request.body;
-    const newName = 'photo' + Date.now() + '.jpg'
-    const destPath = path.join(__dirname, 'uploads', newName);
-    await imageDownloader.image({
-        url: link,
-        dest: destPath
-    });
-    response.json(newName)
-})
-
-const photosMiddleware = multer({dest: 'uploads/'})
-
-app.post('/uploads', photosMiddleware.array('photos',100),(request, response) => {
-    const uploadFiles = [];
-    for (let i=0; i < request.files.length; i++) {
-        const {path, originalname} = request.files[i]
-        const parts = originalname.split('.')
-        const ext = parts[parts.length - 1]
-        const newPath = path + '.' + ext
-        fs.renameSync(path, newPath)
-        uploadFiles.push(newPath.replace('uploads\\',''))
-    }
-    response.json(uploadFiles)
-});
-
 app.post('/places', async (request, response) => {
     const {token} = request.cookies;
     const {title, address, addedPhotos, 

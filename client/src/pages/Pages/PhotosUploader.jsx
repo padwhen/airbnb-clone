@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { storage } from "../firebase/firebase";
+import { storage } from "../../firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from 'uuid';
 

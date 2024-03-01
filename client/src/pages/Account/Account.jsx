@@ -1,9 +1,9 @@
 import { useContext, useState} from "react"
-import { UserContext } from "../UserContext"
+import { UserContext } from "../../UserContext"
 import { Link, Navigate, useParams } from "react-router-dom"
 import axios from "axios";
-import PlacesPage from "./PlacesPage";
-import AccountNav from "../AccountNav";
+import PlacesPage from "../Pages/PlacesPage";
+import AccountNav from "../../AccountNav";
 
 export default function AccountPage() {
     let {subpage} = useParams();
