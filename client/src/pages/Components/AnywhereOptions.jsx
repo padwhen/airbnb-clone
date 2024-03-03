@@ -48,13 +48,16 @@ export const AnywhereOptions = () => {
 };
 
 export const extractCountryFromAddress = (address, continentData) => {
-    const wordsInAddress = address.split(/\s+/)
-    const lastWord = wordsInAddress[wordsInAddress.length - 1]
+    const wordsInAddress = address.split(/\s+/);
+    const lowercasedAddress = address.toLowerCase();
     for (const continent in continentData) {
-        const countriesInContinent = continentData[continent]
-        if (countriesInContinent.some(country => lastWord.includes(country))) {
-            return continent
+        const countriesInContinent = continentData[continent];
+        for (const country of countriesInContinent) {
+            const lowercasedCountry = country.toLowerCase();
+            if (lowercasedAddress.includes(lowercasedCountry) || wordsInAddress.includes(country)) {
+                return continent;
+            }
         }
     }
-    return null
-}
+    return null;
+};

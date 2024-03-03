@@ -12,16 +12,15 @@ export default function BookingWidget({place}) {
     const dayOut = String(currentDate.getDate() + 2).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     const formattedDateOut = `${year}-${month}-${dayOut}`;
-
     const [checkIn, setCheckIn] = useState(formattedDate);
     const [checkOut, setCheckOut] = useState(formattedDateOut);
     const [numberOfGuests, setNumberOfGuests] = useState(1) 
 
     const calculateTime = () => {
-    const checkInDate = new Date(checkIn)
-    const checkOutDate = new Date(checkOut)
-    const timeDifference = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24)
-    return Math.max(2,Math.floor(timeDifference));
+        const checkInDate = new Date(checkIn)
+        const checkOutDate = new Date(checkOut)
+        const timeDifference = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24)
+        return Math.max(2,Math.floor(timeDifference));
     }
 
     const [name, setName] = useState('')
@@ -35,6 +34,17 @@ export default function BookingWidget({place}) {
             setName(user.name)
         }
     }, [])
+
+    useEffect(() => {
+        const checkInDate = new Date(checkIn);
+        const checkOutDate = new Date(checkInDate);
+        checkOutDate.setDate(checkInDate.getDate() + 2);
+        const yearOut = checkOutDate.getFullYear();
+        const monthOut = String(checkOutDate.getMonth() + 1).padStart(2, '0');
+        const dayOut = String(checkOutDate.getDate()).padStart(2, '0');
+        const formattedDateOut = `${yearOut}-${monthOut}-${dayOut}`;
+        setCheckOut(formattedDateOut);
+    }, [checkIn]);
 
     async function bookThisPlace() {
         const response = await axios.post('/booking', {checkIn, checkOut, 
@@ -57,7 +67,7 @@ export default function BookingWidget({place}) {
                 <div className="flex">
                     <div className="py-3 px-4">
                     <label>Check in:</label>
-                    <input type="date" value={checkIn} onChange={event => setCheckIn(event.target.value)} />
+                    <input type="date" min={checkIn} value={checkIn} onChange={event => setCheckIn(event.target.value)} />
                     </div>
 
                     <div className="py-3 px-4 border-l">

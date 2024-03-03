@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import { ContinentProvider, useContinent } from "./Components/AnywhereOptions"
+import { useContinent } from "./Components/AnywhereOptions"
 import { extractCountryFromAddress } from "./Components/AnywhereOptions"
 import countries from '../../country.json'
+import shuffleArray from "../Functions"
 
 export default function IndexPage() {
     const [places, setPlaces] = useState([])
@@ -16,13 +17,13 @@ export default function IndexPage() {
                     const country = extractCountryFromAddress(place.address, countries);
                     return selectedOption === country;
                 });
-                setPlaces(filteredPlaces);
+                setPlaces(shuffleArray(filteredPlaces));
             } else {
-                setPlaces(fetchedPlaces);
+                setPlaces(shuffleArray(fetchedPlaces));
             }
         });
     }, [selectedOption]);
-    
+
     return (
         <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             {places.length > 0 && places.map(place => (

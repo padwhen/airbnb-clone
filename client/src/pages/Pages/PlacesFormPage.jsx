@@ -118,12 +118,12 @@ export default function PlacesFormPage() {
                 </div>
                 <div>
                     <h3 className="mt-2 -mb-1">Max number of guests</h3>
-                    <input type="number" placeholder="8" value={maxGuests} 
+                    <input type="text" placeholder="8" value={maxGuests} 
                         onChange={event => setMaxGuests(event.target.value)} />
                 </div>
                 <div>
                     <h3 className="mt-2 -mb-1">Price per night</h3>
-                    <input type="number" placeholder="8" value={price} 
+                    <input type="text" placeholder="8" value={price} 
                         onChange={event => setPrice(event.target.value)} />
                 </div>
 
