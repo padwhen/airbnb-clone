@@ -2,16 +2,12 @@ import { useContext, useEffect, useState } from "react"
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import { getCurrentTime, setCheckOutDate } from './Functions'
+
+const { formattedDate, formattedDateOut } = getCurrentTime()
 
 export default function BookingWidget({place}) {
 
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const dayOut = String(currentDate.getDate() + 2).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    const formattedDateOut = `${year}-${month}-${dayOut}`;
     const [checkIn, setCheckIn] = useState(formattedDate);
     const [checkOut, setCheckOut] = useState(formattedDateOut);
     const [numberOfGuests, setNumberOfGuests] = useState(1) 
@@ -36,14 +32,7 @@ export default function BookingWidget({place}) {
     }, [])
 
     useEffect(() => {
-        const checkInDate = new Date(checkIn);
-        const checkOutDate = new Date(checkInDate);
-        checkOutDate.setDate(checkInDate.getDate() + 2);
-        const yearOut = checkOutDate.getFullYear();
-        const monthOut = String(checkOutDate.getMonth() + 1).padStart(2, '0');
-        const dayOut = String(checkOutDate.getDate()).padStart(2, '0');
-        const formattedDateOut = `${yearOut}-${monthOut}-${dayOut}`;
-        setCheckOut(formattedDateOut);
+        setCheckOutDate(checkIn, setCheckOut)
     }, [checkIn]);
 
     async function bookThisPlace() {

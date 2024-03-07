@@ -4,7 +4,7 @@ import axios from "axios"
 import { useContinent } from "./Components/AnywhereOptions"
 import { extractCountryFromAddress } from "./Components/AnywhereOptions"
 import countries from '../../country.json'
-import shuffleArray from "../Functions"
+import {shuffleArray} from "../Functions"
 
 export default function IndexPage() {
     const [places, setPlaces] = useState([])

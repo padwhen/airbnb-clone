@@ -6,12 +6,10 @@ const bcrypt = require('bcryptjs')
 const app = express()
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
-const imageDownloader = require('image-downloader')
-const path = require('path')
-const multer = require('multer')
-const fs = require('fs')
+
 const Place = require('./models/Place')
 const Booking = require('./models/Booking')
+const Review = require('./models/Review')
 
 require('dotenv').config()
 app.use(express.json())
@@ -160,7 +158,29 @@ app.post('/booking', async (request, response) => {
     .catch((error) => {throw error})
 })
 
+app.post('/account/bookings/:bookingId/reviews', async (request, response) => {
+    const {bookingId} = request.params;
+    const userData = await getUserDataFromReq(request)
+    const {ratings, average} = request.body
+    Review.create({user: userData.id, ratings, average, booking: bookingId})
+    .then((doc) => {
+        response.json(doc)
+    })
+    .catch((error) => { 
+        console.error('Error creating review: ', error)
+    })
+})
 
+app.get('/account/bookings/:bookingId/reviews', async (request, response) => {
+    try {
+        const {bookingId} = request.params
+        const review = await Review.find({ booking: bookingId })
+        response.json(review)
+    } catch (error) {
+        console.error('Error fetching reviews: ', error)    
+        response.status(500).json({ error: 'Internal Server Error '})
+    }
+})
 
 app.get('/bookings', async (request, response) => {
     const userData = await getUserDataFromReq(request)
