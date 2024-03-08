@@ -25,9 +25,10 @@ export const PlaceRating = ({ placeId }) => {
   }
   console.log(calculateProgressBarWidth(average))
 
+
   return (
     <div>
-      {placeReview > 0 ? (
+      {placeReview.length > 0 ? (
         <div className="w-[450px] space-y-2 mt-2">
             <div>
                 <span className="text-lg font-bold">Average: {average}</span>
