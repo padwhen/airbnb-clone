@@ -37,3 +37,20 @@ export const isPast = (date) => {
     const currentDate = new Date()
     return new Date(date.checkOut) < currentDate
 }
+
+export const calculateOverallAverage = (reviews, property) => {
+    if (!reviews || !Array.isArray(reviews) || reviews.length === 0) {
+        return 0;
+    }
+    const sumOfAverages = reviews.reduce((total, review) => {
+        let value;
+        if (property === 'average') {
+            value = review.review[property];
+        } else {
+            value = review.review.ratings[property];
+        }
+        return total + value;
+    }, 0);
+    const overallAverage = sumOfAverages / reviews.length;
+    return overallAverage;
+}

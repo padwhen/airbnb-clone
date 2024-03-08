@@ -4,6 +4,7 @@ import axios from "axios"
 import BookingWidget from "../../BookingWidget"
 import PlaceGallery from "./PlaceGallery"
 import AddressLink from "../../AddressLink"
+import { PlaceRating } from "./PlaceRating"
 
 export default function PlacePage() {
     const {id} = useParams()
@@ -38,7 +39,11 @@ export default function PlacePage() {
                 </div>
                     <b>Check-in: </b>{checkAm(place.checkIn)}<br />
                     <b>Check-out: </b>{checkAm(place.checkOut)}<br />
-                    <b>Max number of guests: </b>{place.maxGuests}<br />           
+                    <b>Max number of guests: </b>{place.maxGuests}<br /> 
+                    <div className="pt-5">
+                        <span className="text-2xl font-semibold">Reviews by people who have stayed here</span>
+                        <PlaceRating placeId={id} />                        
+                    </div> 
             </div>
  
             <div>

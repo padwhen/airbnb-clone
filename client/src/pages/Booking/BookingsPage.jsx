@@ -10,6 +10,7 @@ export default function BookingsPage() {
     const [bookings, setBookings] = useState([])
     const [reviewedBookings, setReviewedBookings] = useState([])
     const [submitReviewChecked, setSubmitReviewChecked] = useState(false)
+
     useEffect(() => {
         axios.get('/bookings')
         .then(response => {
@@ -51,14 +52,26 @@ export default function BookingsPage() {
         }
     }
     
-
+    const getReviewedBookings = async (bookings) => {
+        const reviewedBookings = [];
+        for (const booking of bookings) {
+            const reviewEndpoint = `/account/bookings/${booking._id}/reviews`;
+            try {
+                const response = await axios.get(reviewEndpoint);
+                if (Array.isArray(response.data) && response.data.length > 0 && 'average' in response.data[0]) {
+                    reviewedBookings.push(booking._id);
+                }
+            } catch (error) {
+                console.error('Error', error);
+            }
+        }
+        return reviewedBookings;
+    };
+        
     useEffect(() => {
-        Promise.all(bookings.map(booking => isReviewed(booking)))
-        .then(results => setReviewedBookings(results))
-    }, [bookings, submitReviewChecked])
+        getReviewedBookings(bookings).then((result) => setReviewedBookings(result))
+    }, [bookings])
 
-    console.log(reviewedBookings)
-    
     const renderBooking = (bookingsArray) => {
         return bookingsArray.map((booking, index) => (
             <div className="flex flex-row">
@@ -78,19 +91,8 @@ export default function BookingsPage() {
                         </div>
                     </div>
                 </Link>
-                {/* {isPast(booking) && reviewedBookings[index] && (
-                    <div className="flex-grow-1">
-                        <ReviewInformation booking={booking} />                        
-                    </div>
-                )}
-                {isPast(booking) && !reviewedBookings[index] && (
-                    <div className="flex-grow-1">
-                        <ReviewDropdown onReviewSubmit={(reviewData) => 
-                        handleReviewSubmit(booking._id, reviewData)} />
-                    </div>                   
-                )}                 */}
                 {isPast(booking) && (
-                    reviewedBookings[index]? (
+                    reviewedBookings.includes(booking._id) ?  (
                         <div className="flex-grow-1">
                             <ReviewInformation booking={booking} />
                         </div>

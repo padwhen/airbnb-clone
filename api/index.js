@@ -29,7 +29,6 @@ function getUserDataFromReq(request) {
 }
 
 app.use(cookieParser());
-app.use('/uploads', express.static(__dirname+'/uploads/'))
 
 app.use(cors({
     credentials: true,
@@ -141,7 +140,6 @@ app.put('/places', async (request, response) => {
             response.json('ok')
         }
     })
-
 })
 
 app.get('/places', async (request, response) => {
@@ -185,6 +183,30 @@ app.get('/account/bookings/:bookingId/reviews', async (request, response) => {
 app.get('/bookings', async (request, response) => {
     const userData = await getUserDataFromReq(request)
     response.json(await Booking.find({user: userData.id}).populate('place')) 
+})
+
+app.get('/places/:placeId/reviews-in-this-place', async (request, response) => {
+    try {
+        const {placeId} = request.params;
+        const bookings = await Booking.find({ place: placeId })
+        const bookingsWithReviews = []
+        for (const booking of bookings) {
+            const review = await Review.findOne({ booking: booking._id })
+            if (review) {
+                bookingsWithReviews.push({
+                    booking,
+                    review: {
+                        ratings: review.ratings,
+                        average: review.average
+                    }
+                })
+            }
+        }
+        response.json(bookingsWithReviews)
+    } catch (error) {
+        console.error('Error fetching bookings and reviews', error)
+        response.status(500).json({ error: 'Internal Server Error '})
+    }
 })
 
 app.listen(process.env.PORT || 4000)
