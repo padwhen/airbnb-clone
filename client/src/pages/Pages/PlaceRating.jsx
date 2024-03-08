@@ -14,21 +14,22 @@ export const PlaceRating = ({ placeId }) => {
 
   const average = calculateOverallAverage(placeReview, "average")
   const cleaniess = calculateOverallAverage(placeReview, "cleaniness")
-  const accuracy = calculateOverallAverage(placeReview, "cleaniness")
-  const location = calculateOverallAverage(placeReview, "cleaniness")
-  const checkIn = calculateOverallAverage(placeReview, "cleaniness")
-  const value = calculateOverallAverage(placeReview, "cleaniness")
-  const checkOut = calculateOverallAverage(placeReview, "cleaniness")
+  const accuracy = calculateOverallAverage(placeReview, "accuracy")
+  const location = calculateOverallAverage(placeReview, "location")
+  const checkIn = calculateOverallAverage(placeReview, "checkIn")
+  const value = calculateOverallAverage(placeReview, "value")
+  const checkOut = calculateOverallAverage(placeReview, "checkOut")
 
   const calculateProgressBarWidth = (average) => {
     return average / 5 * 100
   }
   console.log(calculateProgressBarWidth(average))
 
+  const reviewLength = placeReview ? placeReview.length : 0
 
   return (
     <div>
-      {placeReview.length > 0 ? (
+      {reviewLength > 0 ? (
         <div className="w-[450px] space-y-2 mt-2">
             <div>
                 <span className="text-lg font-bold">Average: {average}</span>

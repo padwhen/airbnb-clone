@@ -39,11 +39,11 @@ app.use(cookieParser())
 
 mongoose.connect(process.env.MONGO_URL)
 
-app.get('/test', (request, response) => {
+app.get('/api/test', (request, response) => {
     response.json('test ok')
 })
 
-app.post('/register', async (request, response) => {
+app.post('/api/register', async (request, response) => {
     const {name, email, password} = request.body
     try {
     const userDoc = await User.create({
@@ -58,7 +58,7 @@ app.post('/register', async (request, response) => {
 
 })
 
-app.post('/login', async (request, response) => {
+app.post('/api/login', async (request, response) => {
     const {email, password} = request.body
     const userDoc = await User.findOne({email})
     if (userDoc) {
@@ -76,7 +76,7 @@ app.post('/login', async (request, response) => {
     }
 })
 
-app.get('/profile', (request, response) => {
+app.get('/api/profile', (request, response) => {
     const {token} = request.cookies
     if (token) {
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -89,14 +89,14 @@ app.get('/profile', (request, response) => {
     }
 })
 
-app.post('/logout', (request, response) => {
+app.post('/api/logout', (request, response) => {
     response.cookie('token', '').json(true)
 })
 
-app.post('/logout', (request, response) => {
+app.post('/api/logout', (request, response) => {
     response.cookie('token','').json(true)
 })
-app.post('/places', async (request, response) => {
+app.post('/api/places', async (request, response) => {
     const {token} = request.cookies;
     const {title, address, addedPhotos, 
         description, perks, extraInfo, checkIn, checkOut, maxGuests, price} = request.body;
@@ -110,7 +110,7 @@ app.post('/places', async (request, response) => {
     })
 })
 
-app.get('/user-places', (request, response) => {
+app.get('/api/user-places', (request, response) => {
     const {token} = request.cookies
     jwt.verify(token, jwtSecret, {}, async (error, userData) => {
         const {id} = userData
@@ -119,12 +119,12 @@ app.get('/user-places', (request, response) => {
     
 })
 
-app.get('/places/:id', async (request, response) => {
+app.get('/api/places/:id', async (request, response) => {
     const {id} = request.params
     response.json(await Place.findById(id))
 })
 
-app.put('/places', async (request, response) => {
+app.put('/api/places', async (request, response) => {
     const {token} = request.cookies;
     const {id, title, address, addedPhotos, 
         description, perks, extraInfo, checkIn, checkOut, maxGuests, price} = request.body;
@@ -142,11 +142,11 @@ app.put('/places', async (request, response) => {
     })
 })
 
-app.get('/places', async (request, response) => {
+app.get('/api/places', async (request, response) => {
     response.json(await Place.find());
 })
 
-app.post('/booking', async (request, response) => {
+app.post('/api/booking', async (request, response) => {
     const userData = await getUserDataFromReq(request)
     const {place, checkIn, checkOut, numberOfGuests, mobile, name, price} = request.body
     Booking.create({place, checkIn, checkOut, numberOfGuests, mobile, name, price, user: userData.id})
@@ -156,7 +156,7 @@ app.post('/booking', async (request, response) => {
     .catch((error) => {throw error})
 })
 
-app.post('/account/bookings/:bookingId/reviews', async (request, response) => {
+app.post('/api/account/bookings/:bookingId/reviews', async (request, response) => {
     const {bookingId} = request.params;
     const userData = await getUserDataFromReq(request)
     const {ratings, average} = request.body
@@ -169,7 +169,7 @@ app.post('/account/bookings/:bookingId/reviews', async (request, response) => {
     })
 })
 
-app.get('/account/bookings/:bookingId/reviews', async (request, response) => {
+app.get('/api/account/bookings/:bookingId/reviews', async (request, response) => {
     try {
         const {bookingId} = request.params
         const review = await Review.find({ booking: bookingId })
@@ -180,12 +180,12 @@ app.get('/account/bookings/:bookingId/reviews', async (request, response) => {
     }
 })
 
-app.get('/bookings', async (request, response) => {
+app.get('/api/bookings', async (request, response) => {
     const userData = await getUserDataFromReq(request)
     response.json(await Booking.find({user: userData.id}).populate('place')) 
 })
 
-app.get('/places/:placeId/reviews-in-this-place', async (request, response) => {
+app.get('/api/places/:placeId/reviews-in-this-place', async (request, response) => {
     try {
         const {placeId} = request.params;
         const bookings = await Booking.find({ place: placeId })
