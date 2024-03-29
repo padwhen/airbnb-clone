@@ -14,5 +14,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "scripts": {
+    "test": "cross-env NODE_ENV=test node --test"
   }
 }
