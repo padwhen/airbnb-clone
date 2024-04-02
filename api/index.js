@@ -9,12 +9,6 @@ const cookieParser = require('cookie-parser')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 
-// app.use(express.json())
-// app.use(express.static('dist'))
-// app.use(cookieParser());
-
-// app.use(cookieParser())
-
 app.listen(config.PORT, () => {
     logger.info(`Server running on port ${config.PORT}`)
 })

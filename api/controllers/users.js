@@ -33,22 +33,37 @@ usersRouter.post('/api/login', async (request, response) => {
             response.status(422).json('password not ok')
         }
     } else {
-        response.json('not found')
+        response.status(422).json('not found')
     }
 })
 
 usersRouter.get('/api/profile', async (request, response) => {
-    const {token} = request.cookies
-    if (token) {
+    try {
+        const { token } = request.cookies;
+        if (!token) {
+            return response.status(500).json({ error: 'Token not found' });
+        }
         jwt.verify(token, JWT_SECRET, {}, async (err, userData) => {
-            if (err) throw err
-            const {name, email, _id} = await User.findById(userData.id)
-            response.json({name,email,_id})
-        })
-    } else {
-        response.json(null)
+            if (err) {
+                return response.status(500).json({ error: 'Invalid token' });
+            }
+            if (!userData || !userData.id) {
+                return response.status(500).json({ error: 'Invalid user data in token' });
+            }
+            const user = await User.findById(userData.id);
+            if (!user) {
+                return response.status(500).json({ error: 'User not found' });
+            }
+            const { name, email, _id } = user;
+            response.json({ name, email, _id });
+        });
+    } catch (error) {
+        console.error('Error in /api/profile:', error);
+        response.status(500).json({ error: 'Internal Server Error' });
     }
-})
+});
+
+
 
 usersRouter.post('/api/logout', (request, response) => {
     response.cookie('token', '').json(true)

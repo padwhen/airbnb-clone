@@ -2,9 +2,20 @@ const mongoose = require('mongoose')
 const {Schema} = mongoose
 
 const UserSchema = new Schema({
-    name: String,
-    email: {type: String, unique: true},
-    password: String
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String, 
+        unique: true,
+        required: true,
+        match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    },
+    password: {
+        type: String,
+        required: true
+    }
 })
 
 const UserModel = mongoose.model('User',UserSchema)
