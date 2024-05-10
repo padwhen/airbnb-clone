@@ -32,31 +32,31 @@ export const PlaceRating = ({ placeId }) => {
       {reviewLength > 0 ? (
         <div className="w-[450px] space-y-2 mt-2">
             <div>
-                <span className="text-lg font-bold">Average: {average}</span>
+                <span className="text-lg font-bold">Average: {average.toFixed(2)}</span>
                 <Line percent={calculateProgressBarWidth(average)} strokeColor="#F5385D" />
             </div>
             <div>
-                Cleaniness: {cleaniess}
+                Cleaniness: {cleaniess.toFixed(2)}
                 <Line percent={calculateProgressBarWidth(cleaniess)} strokeColor="#F5385D" />
             </div>            
             <div>
-                Accuracy: {accuracy}
+                Accuracy: {accuracy.toFixed(2)}
                 <Line percent={calculateProgressBarWidth(accuracy)} strokeColor="#F5385D" />
             </div>            
             <div>
-                Location: {location}
+                Location: {location.toFixed(2)}
                 <Line percent={calculateProgressBarWidth(location)} strokeColor="#F5385D" />
             </div>            
             <div>
-                Check In Time: {checkIn}
+                Check In Time: {checkIn.toFixed(2)}
                 <Line percent={calculateProgressBarWidth(checkIn)} strokeColor="#F5385D" />
             </div>            
             <div>
-                Price: {value}
+                Price: {value.toFixed(2)}
                 <Line percent={calculateProgressBarWidth(value)} strokeColor="#F5385D" />
             </div>            
             <div>
-                Check Out Time: {checkOut}
+                Check Out Time: {checkOut.toFixed(2)}
                 <Line percent={calculateProgressBarWidth(checkOut)} strokeColor="#F5385D" />
             </div>            
         </div>

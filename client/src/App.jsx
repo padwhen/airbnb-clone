@@ -12,7 +12,7 @@ import PlacePage from './pages/Pages/PlacePage';
 import BookingsPage from './pages/Booking/BookingsPage';
 import BookingPage from './pages/Booking/BookingPage';
 
-axios.defaults.baseURL = 'http://localhost:4000/api'
+axios.defaults.baseURL = 'http://localhost:8080/api/'
 axios.defaults.withCredentials = true
 
 function App() {

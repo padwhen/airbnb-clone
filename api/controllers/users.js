@@ -8,14 +8,24 @@ const {JWT_SECRET, BCRYPT_SALT} = require('../utils/config')
 usersRouter.post('/api/register', async (request,response) => {
     const {name, email, password} = request.body
     try {
-    const userDoc = await User.create({
-        name,
-        email,
-        password:bcrypt.hashSync(password, BCRYPT_SALT),
-    })
-    response.json(userDoc)        
-    } catch (e) {
-        response.status(422).json(e)
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+            throw new Error('Password does not meet criteria. It must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be 8-20 characters long')
+        }
+        const hashedPassword = bcrypt.hashSync(password, BCRYPT_SALT)
+        const userDoc = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+        })
+        response.json(userDoc)        
+        } catch (e) {
+        if (e.code === 11000) {
+            response.status(422).json({ message: 'Email is already registered. Please use a different email.' });
+        } else if (e.name === 'ValidationError' && e.errors && e.errors.password) {
+            response.status(422).json({ message: e.errors.password.message });
+        } else {
+            response.status(422).json({ message: e.message });
+        }
     }
 })
 
@@ -67,7 +77,7 @@ usersRouter.get('/api/profile', async (request, response) => {
 
 usersRouter.post('/api/logout', (request, response) => {
     response.cookie('token', '').json(true)
-})
+})  
 
 
 module.exports = usersRouter;

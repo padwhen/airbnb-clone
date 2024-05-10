@@ -16,7 +16,7 @@ export default function Header() {
         </Link>
 
         <div className='flex mr-2 gap-2 border border-gray-300 rounded-full py-2 px-5 shadow-md shadow-gray-300'>
-          <div onClick={toggleOptions}>{selectedOption}</div>
+          <div onClick={toggleOptions} onMouseEnter={toggleOptions}>{selectedOption}</div>
           <div className="border-l border-gray-300"></div>
           <div>Any week</div>
           <div className="border-l border-gray-300"></div>
@@ -28,8 +28,8 @@ export default function Header() {
           </button>
         </div>
 
-        <Link to={user ? '/account/places/new' : '/login'} className="bg-primary text-white rounded-full flex py-2 px-4 ml-1">
-          Airbnb your home
+        <Link to={user ? '/account/places/new' : '/login'} className="bg-primary hover:bg-primaryhover text-white rounded-full flex py-2 px-4 ml-1 justify-center items-center focus:outline-none focus:ring">
+          Rent your place
         </Link>
 
         <div className="flex py-2 px-4 ml-1">

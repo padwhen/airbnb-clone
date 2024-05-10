@@ -36,9 +36,10 @@ export default function LoginPage() {
                 <input type="password" placeholder="password" 
                 value={password} 
                 onChange={event => setPassword(event.target.value)} />
-                <button className="primary">Login</button>
+                <button className="primary hover:bg-primaryhover focus:outline-none focus:ring mt-1">Login</button>
                 <div className="text-center py-2 text-gray-500">
-                    Don't have an account yet?  <Link className="underline text-black" to={'/register'}>Register now</Link>
+                    <span className="block">Don't have an account yet?</span>
+                    <Link to="/register" className="block mt-1 underline text-black hover:text-blue-500 hover:underline">Register now</Link>
                 </div>
             </form>
             </div>

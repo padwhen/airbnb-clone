@@ -73,9 +73,9 @@ export default function BookingWidget({place}) {
                 {calculateTime() > 0 && (
                     <div>
                         <label>Your full name:</label>
-                        <input type="text" placeholder="Seol YoonA" value={name} onChange={event => setName(event.target.value)}/>
+                        <input type="text" placeholder="First Name - Last Name" value={name} onChange={event => setName(event.target.value)}/>
                         <label>Phone number:</label>
-                        <input type="tel" placeholder="+358-XX-XXX-XXXX" value={mobile} onChange={event => setMobile(event.target.value)}/>
+                        <input type="tel" placeholder="+[CountryCode]-XX-XXX-XXXX" value={mobile} onChange={event => setMobile(event.target.value)}/>
                     </div>
                 )}
                 </div>
