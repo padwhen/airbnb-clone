@@ -1,4 +1,4 @@
-# Airbnb made by @padwhen
+# Booking app made by @padwhen
 
 My booking page coverings a comprehensive suite of features including **user registration** and **login capabilities**. 
 Users can easily **make bookings**, **create new listings** for places available for rent, **modify existing listings**, and **leave reviews for their experiences**.
